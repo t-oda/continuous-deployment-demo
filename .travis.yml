@@ -11,12 +11,11 @@ before_install:
   -in credentials.tar.gz.enc -out credentials.tar.gz -d
 - if [ ! -d "${GAE_PYTHONPATH}" ]; then python scripts/fetch_gae_sdk.py $(dirname
   "${GAE_PYTHONPATH}"); fi
-- - if [ ! -d "$HOME/google-cloud-sdk" ]; then
-      export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)";
-      echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list;
-      curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - ;
-      sudo apt-get update && sudo apt-get install google-cloud-sdk;
-  fi
+- - if [ ! -d "$HOME/google-cloud-sdk" ]; then export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release
+    -c -s)"; echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main"
+    | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list; curl https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    | sudo apt-key add - ; sudo apt-get update && sudo apt-get install google-cloud-sdk;
+    fi
 - tar -xzf credentials.tar.gz
 - mkdir -p lib
 - gcloud auth activate-service-account --key-file client-secret.json
